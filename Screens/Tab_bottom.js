@@ -14,8 +14,9 @@ import { useNavigation } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
 
-const Tab_bottom = () => {
+const Tab_bottom = ({route}) => {
     const navi3 = useNavigation();
+    const { userName } = route.params;
     return (
         <Tab.Navigator screenOptions={{ headerShown: false }}>
             <Tab.Screen name="Home" component={Home} options={{
@@ -26,7 +27,9 @@ const Tab_bottom = () => {
 
                 ),
                 title: 'Trang chủ'
-            }} />
+            }} 
+            initialParams={{ userName }}
+            />
             <Tab.Screen name="Schedule" component={Schedule} options={{
                 tabBarIcon: ({ focused }) => (
                     focused ?

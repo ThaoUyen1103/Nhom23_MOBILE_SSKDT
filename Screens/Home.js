@@ -1,13 +1,41 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { StyleSheet, Text, View, Image, Pressable, FlatList } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
 import List from "../data/ListData.json"
 import { useNavigation } from "@react-navigation/native"
 import Tab_bottom from "./Tab_bottom"
 
-export default function Home() {
+export default function Home({route}) {
     const naviHome = useNavigation()
+    const [users, setUsers] = useState([])
+    const [name, setName] = useState("")
+    const [loading, setLoading] = useState(false)
+    const { userName } = route.params;
+    const [qrCode, setQrCode] = useState(
+        "https://654325f301b5e279de1ff315.mockapi.io/api/v1/user"
+    )
+    useEffect(() => {
+        getUsers()
+    }, [qrCode])
 
+    const getUsers = async () => {
+        setLoading(true)
+        await fetch("https://654325f301b5e279de1ff315.mockapi.io/api/v1/user")
+          .then((res) => res.json())
+          .then((res) => {
+            setUsers(res)
+            console.log(name)
+            res.forEach((element) => {
+              
+              if (element.login) {
+                setName(element.userName)
+              }
+            })
+            setQrCode('')
+          })
+          .catch((e) => console.log(e))
+        setLoading(false)
+    }
     return (
         <View style={styles.container}>
             {/* Thông tin người dùng */}
@@ -17,7 +45,7 @@ export default function Home() {
                 </View>
                 <View style={styles.NameArea}>
                     <Text style={styles.text_hello}>Xin chào</Text>
-                    <Text style={styles.text_name}>Người dùng</Text>
+                    <Text style={styles.text_name}>{userName}</Text>
                 </View>
             </View>
 

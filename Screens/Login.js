@@ -13,16 +13,65 @@ import { useNavigation } from "@react-navigation/native";
 
 function Screen_login() {
     const navigation = useNavigation();
+    const [users, setUsers] = useState([])
     const [phone, setPhone] = useState("");
+    const [loading, setLoading] = useState(false)
     const [password, setPassword] = useState("");
+
+    const editLoginStatus = (userId) => {
+        fetch("https://654325f301b5e279de1ff315.mockapi.io/api/v1/user" + `/${userId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            login: true,
+          }),
+        })
+          .then((res) => res.json())
+          .then((resJson) => {
+            console.log("updated:", resJson)
+          })
+          .catch((e) => {
+            console.log(e)
+          })
+    }
+
+    const getUsers = async () => {
+        setLoading(true)
+        await fetch("https://654325f301b5e279de1ff315.mockapi.io/api/v1/user")
+          .then((res) => res.json())
+          .then((res) => {
+            setUsers(res)
+            setQrCode('')
+            console.log(users)
+          })
+          .catch((e) => console.log(e))
+        setLoading(false)
+    }
 
     const onPressForgot = () => {
         navigation.navigate("Forgot_password");
     };
 
     const onPressLogin = () => {
-        navigation.navigate("Tab_bottom");
-    };
+        getUsers()
+        var Correct = false
+        let userName = ""
+        users.forEach((element) => {
+            if (element.phone === phone && element.password === password) {
+                Correct = true
+                userName = element.userName;
+                editLoginStatus(element.userId)
+            }
+        })
+        if (Correct) {
+            navigation.navigate("Tab_bottom", { userName });
+        } else {
+            alert("Tài khoản không hợp lệ");
+        }
+  }
 
     const onPressFingerPrint = () => {
         alert("Đăng nhập bằng dấu vân tay");
@@ -32,6 +81,7 @@ function Screen_login() {
         navigation.navigate("Register");
     };
 
+    
     return (
         <ScrollView contentContainerStyle={styles.scrollViewContainer}>
             <View style={styles.container}>
@@ -43,12 +93,15 @@ function Screen_login() {
                         <Text style={styles.Text_Style}>Số điện thoại</Text>
                         <Custominput
                             placeholder="Nhập nội dung"
-
+                            value={phone}
+                            setValue={(phone) => setPhone(phone)}
                         />
                         <Text style={styles.Text_Style}>Mật khẩu</Text>
                         <Custominput
                             placeholder="Nhập mật khẩu"
-
+                            value={password}
+                            setValue={(password) => setPassword(password)}
+                            secureTextEntry
                         />
                     </View>
                     <View style={styles.forgot}>
