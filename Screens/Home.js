@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Image, Pressable, FlatList } from "react-native
 import Icon from "react-native-vector-icons/Ionicons"
 import List from "../data/ListData.json"
 import { useNavigation } from "@react-navigation/native"
-
+import Tab_bottom from "./Tab_bottom"
 
 export default function Home() {
     const naviHome = useNavigation()
@@ -121,7 +121,6 @@ export default function Home() {
                         </Pressable>
                     )}
                 /> */}
-        
             </View>
         </View>
     )

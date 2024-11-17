@@ -1,14 +1,15 @@
 import { View, Text, Pressable, Image } from 'react-native'
 import React, { useEffect } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+
+
 import Icon from 'react-native-vector-icons/Ionicons'
 import IconCom from 'react-native-vector-icons/MaterialCommunityIcons'
 import Home from './Home';
 import Schedule from './Schedule';
-import Scanner from './Scanner';
 import Notify from './Notify';
 import Personal from './Personal';
-
+import Scanner from './Scanner';
 import { useNavigation } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();

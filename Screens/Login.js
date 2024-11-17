@@ -21,7 +21,7 @@ function Screen_login() {
     };
 
     const onPressLogin = () => {
-        navigation.navigate("Home");
+        navigation.navigate("Tab_bottom");
     };
 
     const onPressFingerPrint = () => {

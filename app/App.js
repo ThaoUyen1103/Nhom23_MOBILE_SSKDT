@@ -34,14 +34,9 @@ export default function App() {
       >
         <Stack.Screen name="Login" component={Screen_login} />
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="Tab_bottom"
-          component={Tab_bottom}
-        />
+        <Stack.Screen name="Tab_bottom" component={Tab_bottom} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
-
+ 
   );
 }
