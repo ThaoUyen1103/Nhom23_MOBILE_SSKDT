@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     },
     label_text: {
         fontWeight: "bold",
-        fontSize: 17,
+        fontSize: 20,
     },
     input_area: {
         width: "80%",

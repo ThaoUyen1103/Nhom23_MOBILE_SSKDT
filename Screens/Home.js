@@ -121,7 +121,7 @@ export default function Home() {
                         </Pressable>
                     )}
                 /> */}
-
+        
             </View>
         </View>
     )
@@ -193,8 +193,8 @@ const styles = StyleSheet.create({
         borderRadius: 20,
     },
     imgSty: {
-        height: 50,
-        width: 50,
+        height: 60,
+        width: 60,
         resizeMode: "contain",
         marginBottom: 5,
     },

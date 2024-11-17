@@ -23,7 +23,7 @@ export default function App() {
           headerBackTitleVisible: false,
           headerTitle: () => <CustomHeader />,
           headerStyle: {
-            height: 180,
+            height: 120,
             backgroundColor: "#2b83f9",
           },
           headerLeftContainerStyle: {

@@ -1,13 +1,14 @@
 import { View, Text, Pressable, Image } from 'react-native'
 import React, { useEffect } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import Home from './Home';
-import Schedule from './Schedule';
 import Icon from 'react-native-vector-icons/Ionicons'
 import IconCom from 'react-native-vector-icons/MaterialCommunityIcons'
+import Home from './Home';
+import Schedule from './Schedule';
+import Scanner from './Scanner';
 import Notify from './Notify';
 import Personal from './Personal';
-import Scanner from './Scanner';
+
 import { useNavigation } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
@@ -35,11 +36,11 @@ const Tab_bottom = () => {
                 title: 'Lịch hẹn'
             }} />
             <Tab.Screen name='Scanner' component={Scanner} options={{
-                tabBarIcon: ({ }) => (
-                    <View style={{ backgroundColor: '#4aaafa', height: 80, width: 80, borderRadius: 80, justifyContent: 'center', alignItems: 'center', marginBottom: 10, shadowColor: '#fffff9', shadowOpacity: 1, shadowOffset: { width: 0, height: 0 } }}>
-                        <IconCom name='qrcode-scan' size={30} color={'white'} />
-                        <Text style={{ color: 'white' }}>Quét QR</Text>
-                    </View>
+                tabBarIcon: ({  }) => (
+                        <View style={{ backgroundColor: '#4aaafa', height: 80, width: 80, borderRadius: 80, justifyContent: 'center', alignItems: 'center', marginBottom:10,shadowColor: '#fffff9',shadowOpacity: 1, shadowOffset:{width: 0, height: 0} }}>
+                            <IconCom name='qrcode-scan' size={30} color={'white'} />
+                            <Text style = {{color: 'white'}}>Quét QR</Text>
+                        </View>
 
                 ),
                 title: ''
