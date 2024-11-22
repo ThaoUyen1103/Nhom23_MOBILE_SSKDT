@@ -11,6 +11,7 @@ import Declare from "../Screens/Declare";
 import DocHealth from "../Screens/DocHealth";
 import ResVacxin from "../Screens/ResVacxin";
 import HealthFacilities from "../Screens/HealthFacilities";
+import More from "../Screens/More";
 import Advise from "../Screens/Advise";
 import Scanner from "../Screens/Scanner"
 import Schedule from "../Screens/Schedule"
@@ -46,6 +47,7 @@ export default function App() {
         <Stack.Screen name="ResVacxin" component={ResVacxin} options={{ headerShown: false }} />
         <Stack.Screen name="HealthFacilities" component={HealthFacilities} options={{ headerShown: false }} />
         <Stack.Screen name="Advise" component={Advise} options={{ headerShown: false }} />
+        <Stack.Screen name="More" component={More} options={{ headerShown: false }} />
         <Stack.Screen name="Tab_bottom" component={Tab_bottom} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>

@@ -2,31 +2,31 @@
     {
         "id": "1",
         "name": "Hộ chiếu vắc-xin",
-        "img": "https://res.cloudinary.com/dwu4fcnse/image/upload/v1698841775/img_project/pic120_rpwcok.png"
+        "img": "../images/menuh1.png"
     },
     {
         "id": "2",
         "name": "Phản ứng sau tiêm",
-        "img": "https://res.cloudinary.com/dwu4fcnse/image/upload/v1698841775/img_project/pic121_dvnhrs.png"
+        "img": "../images/tc2.png"
     },
     {
         "id": "3",
         "name": "Đăng ký tiêm chủng",
-        "img": "https://res.cloudinary.com/dwu4fcnse/image/upload/v1698841776/img_project/pic140_zwqn0a.png"
+        "img": "../images/tc3.png"
     },
     {
         "id": "4",
         "name": "Mã số sức khỏe",
-        "img": "https://res.cloudinary.com/dwu4fcnse/image/upload/v1698841776/img_project/pic140_zwqn0a.png"
+        "img": "../images/tc4.png"
     },
     {
         "id": "5",
         "name": "Hồ sơ sức khỏe",
-        "img": "https://res.cloudinary.com/dwu4fcnse/image/upload/v1698841776/img_project/pic140_zwqn0a.png"
+        "img": "../images/tc5.png"
     },
     {
         "id": "6",
         "name": "Phản ánh tiêm chủng",
-        "img": "https://res.cloudinary.com/dwu4fcnse/image/upload/v1698841776/img_project/pic140_zwqn0a.png"
+        "img": "../images/tc6.png"
     }
 ]
