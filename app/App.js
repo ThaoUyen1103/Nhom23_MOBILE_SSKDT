@@ -13,6 +13,8 @@ import ResVacxin from "../Screens/ResVacxin";
 import HealthFacilities from "../Screens/HealthFacilities";
 import More from "../Screens/More";
 import Advise from "../Screens/Advise";
+import Passpore from "../Screens/Passpore";
+import HandBook from "../Screens/HandBook";
 import Scanner from "../Screens/Scanner"
 import Schedule from "../Screens/Schedule"
 import Notify from "../Screens/Notify"
@@ -47,7 +49,9 @@ export default function App() {
         <Stack.Screen name="ResVacxin" component={ResVacxin} options={{ headerShown: false }} />
         <Stack.Screen name="HealthFacilities" component={HealthFacilities} options={{ headerShown: false }} />
         <Stack.Screen name="Advise" component={Advise} options={{ headerShown: false }} />
+        <Stack.Screen name="Passpore" component={Passpore} options={{ headerShown: false }} />
         <Stack.Screen name="More" component={More} options={{ headerShown: false }} />
+        <Stack.Screen name="HandBook" component={HandBook} options={{ headerShown: false }} />
         <Stack.Screen name="Tab_bottom" component={Tab_bottom} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>

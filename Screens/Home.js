@@ -119,23 +119,23 @@ export default function Home({route}) {
                 />
 
                 {/* Cẩm nang y tế */}
-                {/* <View style={styles.newpaper_text}>
+                <View style={styles.newpaper_text}>
                     <Text style={{ fontWeight: "bold", fontSize: 20, color: "#353b42" }}>
                         Cẩm nang y tế
                     </Text>
                     <Pressable onPress={() => { naviHome.navigate('HandBook') }}>
                         <Text style={{ color: "#5e83d4" }}>Tất cả</Text>
                     </Pressable>
-                </View> */}
-                {/* <FlatList
+                </View>
+                <FlatList
                     data={[
                         {
                             name: "Cam nang so suc khoe dien tu",
-                            img: "https://res.cloudinary.com/dwu4fcnse/image/upload/v1698923600/images/bao1_aaacpd.jpg",
+                            img: "../images/bao1.png",
                         },
                         {
                             name: "Cam nang so suc khoe dien tu",
-                            img: "https://res.cloudinary.com/dwu4fcnse/image/upload/v1698923598/images/bao2_rtputz.jpg",
+                            img: "../images/bao2.png",
                         },
                     ]}
                     horizontal
@@ -148,7 +148,7 @@ export default function Home({route}) {
                             </View>
                         </Pressable>
                     )}
-                /> */}
+                />
             </View>
         </View>
     )
