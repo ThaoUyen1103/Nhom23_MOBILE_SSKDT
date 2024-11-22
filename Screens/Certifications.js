@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react"
 import QRCode from "react-native-qrcode-svg"
 import { useNavigation } from "@react-navigation/native"
 import Icon from "react-native-vector-icons/Ionicons"
-const Certification = () => {
+const Certification = ({route}) => {
   const naviCer = useNavigation();
   const [users, setUsers] = useState([])
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [birthDay, setBirthDay] = useState("")
-
+  const user = route.params?.user; // Nhận thông tin user từ Tab_bottom
   const [qrCode, setQrCode] = useState(
     "https://654325f301b5e279de1ff315.mockapi.io/api/v1/user"
   )
@@ -69,21 +69,21 @@ const Certification = () => {
             <Icon name="person" size={23} color={"#5D5D5D"} />
             <View>
               <Text style={styles.text4}>Họ và tên:</Text>
-              <Text style={styles.text3}>{name}</Text>
+              <Text style={styles.text3}>{user?.userName}</Text>
             </View>
           </View>
           <View style={styles.info1}>
             <Icon name="calendar-outline" size={23} color={"#5D5D5D"} />
             <View>
               <Text style={styles.text4}>Ngày sinh:</Text>
-              <Text style={styles.text3}>{birthDay}</Text>
+              <Text style={styles.text3}>{user?.birthDay}</Text>
             </View>
           </View>
           <View style={styles.info1}>
             <Icon name="newspaper-outline" size={23} color={"#5D5D5D"} />
             <View>
               <Text style={styles.text4}>Số điện thoại liên lạc:</Text>
-              <Text style={styles.text3}>{phone}</Text>
+              <Text style={styles.text3}>{user?.phone}</Text>
             </View>
           </View>
         </View>
@@ -158,6 +158,7 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
+    marginLeft:40
   },
   title2: {
     // backgroundColor: "#FFD6D6",
@@ -165,9 +166,10 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
+    marginLeft:-20
   },
   text1: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: "bold",
     color: "#FFFFFF",
   },

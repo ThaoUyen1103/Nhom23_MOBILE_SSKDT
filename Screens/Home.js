@@ -10,7 +10,7 @@ export default function Home({route}) {
     const [users, setUsers] = useState([])
     const [name, setName] = useState("")
     const [loading, setLoading] = useState(false)
-    const { userName } = route.params;
+    const user = route.params?.user; // Nhận thông tin user từ Tab_bottom
     const [qrCode, setQrCode] = useState(
         "https://654325f301b5e279de1ff315.mockapi.io/api/v1/user"
     )
@@ -45,7 +45,7 @@ export default function Home({route}) {
                 </View>
                 <View style={styles.NameArea}>
                     <Text style={styles.text_hello}>Xin chào</Text>
-                    <Text style={styles.text_name}>{userName}</Text>
+                    <Text style={styles.text_name}>{user?.userName}</Text>
                 </View>
             </View>
 
@@ -59,7 +59,7 @@ export default function Home({route}) {
                     <Text style={styles.text_btn}>Khai báo</Text>
                     <Text style={styles.text_btn}>Y tế</Text>
                 </Pressable>
-                <Pressable style={styles.btn2} onPress={() => { naviHome.navigate('Certification') }}>
+                <Pressable style={styles.btn2} onPress={() => { naviHome.navigate('Certification', {user}) }}>
                     <Image
                         style={styles.imgSty}
                         source={require("../images/icons/pic127.png")}

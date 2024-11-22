@@ -16,10 +16,11 @@ const Tab = createBottomTabNavigator();
 
 const Tab_bottom = ({route}) => {
     const navi3 = useNavigation();
-    const { userName } = route.params;
+    const user = route.params?.user; //// Nhận thông tin user từ Login
+    console.log("Thông tin người dùng:", user); // Kiểm tra thông tin
     return (
         <Tab.Navigator screenOptions={{ headerShown: false }}>
-            <Tab.Screen name="Home" component={Home} options={{
+            <Tab.Screen name="Home" component={Home} initialParams={{ user }} options={{
                 tabBarIcon: ({ focused }) => (
                     focused ?
                         <Icon name='home' size={30} color={'#2980fd'} />
@@ -28,7 +29,7 @@ const Tab_bottom = ({route}) => {
                 ),
                 title: 'Trang chủ'
             }} 
-            initialParams={{ userName }}
+            
             />
             <Tab.Screen name="Schedule" component={Schedule} options={{
                 tabBarIcon: ({ focused }) => (

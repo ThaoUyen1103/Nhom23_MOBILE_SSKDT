@@ -55,19 +55,19 @@ function Screen_login() {
         navigation.navigate("Forgot_password");
     };
 
-    const onPressLogin = () => {
-        getUsers()
+    const onPressLogin = async () => {
+        await getUsers(); //gọi API lấy ds người dùng
         var Correct = false
-        let userName = ""
+        let correctUser = null
         users.forEach((element) => {
             if (element.phone === phone && element.password === password) {
                 Correct = true
-                userName = element.userName;
+                correctUser = element; //Lưu thông tin người dùng 
                 editLoginStatus(element.userId)
             }
         })
-        if (Correct) {
-            navigation.navigate("Tab_bottom", { userName });
+        if (correctUser) {
+            navigation.navigate("Tab_bottom", { user : correctUser });
         } else {
             alert("Tài khoản không hợp lệ");
         }

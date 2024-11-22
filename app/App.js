@@ -6,6 +6,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import CustomHeader from "../Components/Header";
 import Tab_bottom from "../Screens/Tab_bottom"
+import Certification from "../Screens/Certifications"
 import Scanner from "../Screens/Scanner"
 import Schedule from "../Screens/Schedule"
 import Notify from "../Screens/Notify"
@@ -34,6 +35,7 @@ export default function App() {
       >
         <Stack.Screen name="Login" component={Screen_login} />
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+        <Stack.Screen name="Certification" component={Certification} options={{ headerShown: false }} />
         <Stack.Screen name="Tab_bottom" component={Tab_bottom} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
