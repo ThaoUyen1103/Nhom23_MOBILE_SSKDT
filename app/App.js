@@ -8,7 +8,8 @@ import CustomHeader from "../Components/Header";
 import Tab_bottom from "../Screens/Tab_bottom";
 import Certification from "../Screens/Certifications";
 import Declare from "../Screens/Declare";
-import DocHealth from "../Screens/DocHealth"
+import DocHealth from "../Screens/DocHealth";
+import ResVacxin from "../Screens/ResVacxin"
 import Scanner from "../Screens/Scanner"
 import Schedule from "../Screens/Schedule"
 import Notify from "../Screens/Notify"
@@ -40,6 +41,7 @@ export default function App() {
         <Stack.Screen name="Certification" component={Certification} options={{ headerShown: false }} />
         <Stack.Screen name="Declare" component={Declare} options={{ headerShown: false }} />
         <Stack.Screen name="DocHealth" component={DocHealth} options={{ headerShown: false }} />
+        <Stack.Screen name="ResVacxin" component={ResVacxin} options={{ headerShown: false }} />
         <Stack.Screen name="Tab_bottom" component={Tab_bottom} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
