@@ -13,75 +13,76 @@ import { useNavigation } from "@react-navigation/native";
 
 function Screen_login() {
     const navigation = useNavigation();
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState([]);
     const [phone, setPhone] = useState("");
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
     const [password, setPassword] = useState("");
 
+    // Cập nhật trạng thái đăng nhập của người dùng
     const editLoginStatus = (userId) => {
         fetch("https://654325f301b5e279de1ff315.mockapi.io/api/v1/user" + `/${userId}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            login: true,
-          }),
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: JSON.stringify({
+                login: true,
+            }),
         })
-          .then((res) => res.json())
-          .then((resJson) => {
-            console.log("updated:", resJson)
-          })
-          .catch((e) => {
-            console.log(e)
-          })
-    }
-
-    const getUsers = async () => {
-        setLoading(true)
-        await fetch("https://654325f301b5e279de1ff315.mockapi.io/api/v1/user")
-          .then((res) => res.json())
-          .then((res) => {
-            setUsers(res)
-            setQrCode('')
-            console.log(users)
-          })
-          .catch((e) => console.log(e))
-        setLoading(false)
-    }
-
-    const onPressForgot = () => {
-        navigation.navigate("Forgot_password");
+            .then((res) => res.json())
+            .then((resJson) => {
+                console.log("updated:", resJson);
+            })
+            .catch((e) => {
+                console.log(e);
+            });
     };
 
-    const onPressLogin = async () => {
-        await getUsers(); //gọi API lấy ds người dùng
-        var Correct = false
-        let correctUser = null
-        users.forEach((element) => {
-            if (element.phone === phone && element.password === password) {
-                Correct = true
-                correctUser = element; //Lưu thông tin người dùng 
-                editLoginStatus(element.userId)
-            }
-        })
-        if (correctUser) {
-            navigation.navigate("Tab_bottom", { user : correctUser });
-        } else {
-            alert("Tài khoản không hợp lệ");
+    // Hàm lấy dữ liệu người dùng
+    const getUsers = async () => {
+        setLoading(true); // Bắt đầu trạng thái tải
+        try {
+            const response = await fetch("https://654325f301b5e279de1ff315.mockapi.io/api/v1/user");
+            const res = await response.json();
+            setUsers(res); // Cập nhật trạng thái users
+        } catch (e) {
+            console.log(e); // Xử lý lỗi nếu có
+        } finally {
+            setLoading(false); // Kết thúc trạng thái tải
         }
-  }
+    };
 
+    // Hàm xử lý khi bấm quên mật khẩu
+    const onPressForgot = () => {
+        navigation.navigate("ForgotPassword");
+    };
+
+    // Hàm xử lý khi bấm đăng nhập
+    const onPressLogin = async () => {
+        setLoading(true); // Bắt đầu trạng thái tải
+        await getUsers(); // Chờ dữ liệu người dùng được tải xong
+        const correctUser = users.find(user => user.phone === phone && user.password === password); // Kiểm tra nếu người dùng đúng
+        setLoading(false); // Ẩn trạng thái tải
+
+        if (correctUser) {
+            editLoginStatus(correctUser.userId); // Cập nhật trạng thái đăng nhập cho người dùng
+            navigation.navigate("Tab_bottom", { user: correctUser }); // Chuyển tới màn hình tiếp theo với dữ liệu người dùng
+        } else {
+            alert("Tài khoản không hợp lệ"); // Thông báo nếu không tìm thấy người dùng
+        }
+    };
+
+    // Hàm xử lý khi bấm đăng nhập bằng dấu vân tay
     const onPressFingerPrint = () => {
         alert("Đăng nhập bằng dấu vân tay");
     };
 
+    // Hàm xử lý khi bấm đăng ký
     const onPressRegister = () => {
         navigation.navigate("Register");
     };
 
-    
     return (
         <ScrollView contentContainerStyle={styles.scrollViewContainer}>
             <View style={styles.container}>
@@ -213,4 +214,4 @@ const styles = StyleSheet.create({
         marginTop: 60,
         alignItems: "center",
     },
-})
+});
