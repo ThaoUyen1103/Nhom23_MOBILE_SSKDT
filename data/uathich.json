@@ -1,28 +1,17 @@
 [
     {
         "id": "7",
-        "name": "Hộ chiếu vắc-xin",
-        "img": "../images/menuh1.png"
+        "name": "Đặt hẹn khám",
+        "img": "../images/dk1.png"
     },
     {
         "id": "8",
-        "name": "Đăng ký tiêm chủng",
-        "img": "../images/tc3.png"
+        "name": "Tìm bác sĩ",
+        "img": "../images/dk2.png"
     },
     {
         "id": "9",
-        "name": "Đặt hẹn khám",
-        "img": "../images/dk1.png"
-    },
-    {
-        "id": "10",
-        "name": "Đăng ký tiêm chủng",
-        "img": "../images/tc3.png"
-    },
-    {
-        "id": "11",
-        "name": "Đặt hẹn khám",
-        "img": "../images/dk1.png"
+        "name": "Tìm cơ sở y tế",
+        "img": "../images/dk3.png"
     }
-    
 ]

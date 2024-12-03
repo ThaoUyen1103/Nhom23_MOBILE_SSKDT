@@ -56,13 +56,9 @@ const Certification = ({route}) => {
         <Text style={styles.text2}>ĐÃ TIÊM 04 MŨI VACCINE</Text>
         <View style={styles.qrcode}>
           <View style={styles.viewQR}>
-            {/*<QRCode value={qrCode} />*/}
+            <QRCode value={qrCode} />
           </View>
         </View>
-        {/* <Image
-          style={{ width: 120, height: 120, margin: 10 }}
-          source={require("../images/chungNhan_0001_Layer-2.png")}
-        /> */}
         <Text style={styles.text1}>Thông tin cá nhân:</Text>
         <View style={styles.info}>
           <View style={styles.info1}>

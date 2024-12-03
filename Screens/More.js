@@ -39,7 +39,7 @@ const More = () => {
                 <Icon name="search" size={20} color="#BBBBBB" />
             </View>
             <View style={styles.more1}>
-                <Text style={styles.label}>Tuỳ chọn</Text>
+                <Text style={styles.label}>Tùy chọn</Text>
                 <FlatList
                 style={styles.list}
                 numColumns={3}
@@ -69,12 +69,13 @@ const More = () => {
                             }
                         }}
                     >
-                    <View style={styles.item_container}>
+                    
+                      <View style={styles.item_container}>
                         <Image style={styles.btn_img} source={{ uri: item.img }} />
                         <View style={{ alignItems: "center", width: 100 }}>
-                        <Text style={styles.text_item}>{item.name}</Text>
+                          <Text style={styles.text_item}>{item.name}</Text>
                         </View>
-                    </View>
+                      </View>
                     </Pressable>
                 )}
                 />
