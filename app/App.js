@@ -15,6 +15,7 @@ import More from "../Screens/More";
 import Advise from "../Screens/Advise";
 import Passpore from "../Screens/Passpore";
 import HandBook from "../Screens/HandBook";
+import InfoUser from "../Screens/InfoUser"
 import Scanner from "../Screens/Scanner"
 import Schedule from "../Screens/Schedule"
 import Notify from "../Screens/Notify"
@@ -44,6 +45,7 @@ export default function App() {
         <Stack.Screen name="Login" component={Screen_login} />
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
         <Stack.Screen name="Certification" component={Certification} options={{ headerShown: false }} />
+        <Stack.Screen name="InfoUser" component={InfoUser} options={{headerShown: false}}/>
         <Stack.Screen name="Declare" component={Declare} options={{ headerShown: false }} />
         <Stack.Screen name="DocHealth" component={DocHealth} options={{ headerShown: false }} />
         <Stack.Screen name="ResVacxin" component={ResVacxin} options={{ headerShown: false }} />
@@ -52,6 +54,7 @@ export default function App() {
         <Stack.Screen name="Passpore" component={Passpore} options={{ headerShown: false }} />
         <Stack.Screen name="More" component={More} options={{ headerShown: false }} />
         <Stack.Screen name="HandBook" component={HandBook} options={{ headerShown: false }} />
+        <Stack.Screen name="Personal" component={Personal} options={{headerShown: false}} />
         <Stack.Screen name="Tab_bottom" component={Tab_bottom} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>

@@ -5,15 +5,15 @@ import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
 import ModalLogout from "./ModalLogout";
 
-const Personal = () => {
+const Personal = ({route}) => {
   const naviPer = useNavigation();
-  const [name, setName] = useState("Nguyễn Thảo Uyên");
-  const [phone, setPhone] = useState("0123456789");
+  const [name, setName] = useState([]);
+  const [phone, setPhone] = useState("");
   const [qrCode, setQrCode] = useState(
-    "https://653f4af99e8bd3be29e02de4.mockapi.io/user"
+    "https://654325f301b5e279de1ff315.mockapi.io/api/v1/user"
   );
   const [visible, setVisible] = useState(false);
-
+  const user = route.params?.user; // Nhận thông tin user từ Tab_bottom
   const onPressLogout = () => {
     setVisible(false);
     naviPer.navigate("Login");
@@ -27,8 +27,8 @@ const Personal = () => {
             <Icon name="person" size={40} color={"#B4B4B4"} />
           </View>
           <View>
-            <Text style={styles.text1}>{name}</Text>
-            <Text style={styles.text2}>{phone}</Text>
+            <Text style={styles.text1}>{user?.userName}</Text>
+            <Text style={styles.text2}>{user?.phone}</Text>
           </View>
         </View>
         <Pressable style={styles.logout} onPress={() => { setVisible(true) }}>
@@ -46,7 +46,7 @@ const Personal = () => {
       </View>
 
       <View style={styles.more}>
-        <Pressable style={styles.btn} onPress={() => { naviPer.navigate("InfoUser") }}>
+        <Pressable style={styles.btn} onPress={() => { naviPer.navigate("InfoUser",{user}) }}>
           <Icon name="person" size={23} color={"#5D5D5D"} />
           <Text style={styles.text3}>Thông tin cá nhân</Text>
         </Pressable>

@@ -60,7 +60,7 @@ const Tab_bottom = ({route}) => {
                 ),
                 title: 'thông báo'
             }} />
-            <Tab.Screen name="Personal" component={Personal} options={{
+            <Tab.Screen name="Personal" component={Personal} initialParams={{ user }} options={{
                 tabBarIcon: ({ focused }) => (
                     focused ?
                         <Icon name='person' size={30} color={'#2980fd'} />
