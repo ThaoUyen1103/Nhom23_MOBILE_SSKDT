@@ -3,15 +3,94 @@ import {
   Text,
   StyleSheet,
   Pressable,
-  Image,
+  Button,
   TextInput,
-} from "react-native"
-import React from "react"
-import { useNavigation } from "@react-navigation/native"
-import Icon from "react-native-vector-icons/Ionicons"
+  FlatList,
+} from "react-native";
+import React, { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/Ionicons";
 
 const ResVacxin = () => {
   const naviRe = useNavigation();
+
+  // State để lưu thông tin tiêm chủng
+  const [vaccines, setVaccines] = useState([]);
+  const [vaccineName, setVaccineName] = useState("");
+  const [selectedVaccine, setSelectedVaccine] = useState(null);
+  const [userData, setUserData] = useState([]); // To store user data
+
+  // Danh sách các loại vaccine có sẵn
+  const availableVaccines = [
+    { id: '1', name: "Vaccine COVID-19" },
+    { id: '2', name: "Vaccine cúm mùa" },
+    { id: '3', name: "Vaccine viêm gan B" },
+    { id: '4', name: "Vaccine phòng uốn ván" },
+    { id: '5', name: "Vaccine bại liệt" },
+    { id: '6', name: "Vaccine sởi, quai bị, rubella (MMR)" },
+    { id: '7', name: "Vaccine viêm phổi" },
+    { id: '8', name: "Vaccine HPV (Papillomavirus)" },
+  ];
+
+  // Fetch user data
+  useEffect(() => {
+    fetch('https://654325f301b5e279de1ff315.mockapi.io/api/v1/user')
+      .then(response => response.json())
+      .then(data => setUserData(data))
+      .catch(error => console.error('Error fetching user data:', error));
+  }, []);
+
+  // Hàm để đăng ký mũi tiêm mới
+  const registerVaccine = async () => {
+    if (selectedVaccine) {
+      const newVaccine = {
+        vaccineName: selectedVaccine.name,
+        date: new Date().toISOString(), // Ngày hiện tại
+      };
+
+      const userId = '1'; // Example: Use the correct user ID
+      const user = userData.find(user => user.id === userId);
+
+      if (user) {
+        // Add the new vaccine to the user's vaccine list
+        const updatedVaccines = [...user.vaccines, newVaccine];
+
+        // Update the user data on the server
+        try {
+          const response = await fetch(
+            `https://654325f301b5e279de1ff315.mockapi.io/api/v1/user/${userId}`,
+            {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                ...user,
+                vaccines: updatedVaccines, // Update vaccine list
+              }),
+            }
+          );
+
+          if (response.ok) {
+            const updatedUser = await response.json();
+            alert('Đăng ký tiêm chủng thành công!');
+
+            // Update the local state with the new vaccine list
+            setVaccines(updatedUser.vaccines);
+          } else {
+            const errorData = await response.json();
+            alert(`Lỗi: ${errorData.message || 'Đã có lỗi xảy ra. Vui lòng thử lại!'}`);
+          }
+        } catch (error) {
+          console.error('Lỗi khi gọi API:', error);
+          alert('Đã có lỗi xảy ra, vui lòng thử lại!');
+        }
+      }
+    } else {
+      alert('Vui lòng chọn vaccine!');
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.view1}>
@@ -22,19 +101,52 @@ const ResVacxin = () => {
         </Pressable>
         <Text style={styles.text1}>Đăng ký tiêm chủng</Text>
       </View>
+
       <View style={styles.view2}>
         <View style={styles.notify}>
-          <Text>Không có dữ liệu</Text>
+          <Text>Thông tin tiêm chủng:</Text>
+          {vaccines.length === 0 ? (
+            <Text>Chưa có mũi tiêm nào được đăng ký.</Text>
+          ) : (
+            vaccines.map((vaccine, index) => (
+              <View key={index} style={styles.vaccineItem}>
+                <Text>{`Vaccine: ${vaccine.vaccineName} - Ngày tiêm: ${vaccine.date}`}</Text>
+              </View>
+            ))
+          )}
         </View>
+
+        <FlatList
+          data={availableVaccines}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Pressable
+              style={styles.vaccineOption}
+              onPress={() => setSelectedVaccine(item)}
+            >
+              <Text>{item.name}</Text>
+            </Pressable>
+          )}
+        />
+
+        {selectedVaccine && (
+          <TextInput
+            style={styles.input}
+            value={selectedVaccine.name}
+            editable={false} // Chỉ hiển thị tên vaccine đã chọn, không cho chỉnh sửa
+          />
+        )}
+
+        <Button title="Đăng ký tiêm chủng" onPress={registerVaccine} />
       </View>
     </View>
-  )
-}
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#2b83f9",
-    //backgroundImage: 'linear-gradient(to right, #2b83f9, #47a6fa)',
     alignItems: "center",
     justifyContent: "center",
   },
@@ -49,7 +161,6 @@ const styles = StyleSheet.create({
     color: "black",
   },
   notify: {
-    // backgroundColor: "#DEBDBD",
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
@@ -57,7 +168,6 @@ const styles = StyleSheet.create({
   },
   view1: {
     flexDirection: 'row',
-    // backgroundColor: "#B9DDFF",
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
@@ -69,6 +179,7 @@ const styles = StyleSheet.create({
     height: "87%",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    padding: 20,
   },
   text1: {
     fontSize: 18,
@@ -76,12 +187,23 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   title1: {
-    // backgroundColor: "#FFD6D6",
     width: "10%",
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
   },
-})
+  vaccineItem: {
+    marginBottom: 10,
+    padding: 10,
+    backgroundColor: "#f2f2f2",
+    borderRadius: 5,
+  },
+  vaccineOption: {
+    padding: 10,
+    backgroundColor: "#f9f9f9",
+    borderRadius: 5,
+    marginVertical: 5,
+  },
+});
 
-export default ResVacxin
+export default ResVacxin;

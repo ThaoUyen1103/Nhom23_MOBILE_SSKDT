@@ -1,41 +1,39 @@
-import React, { useEffect, useState } from "react"
-import { StyleSheet, Text, View, Image, Pressable, FlatList } from "react-native"
-import Icon from "react-native-vector-icons/Ionicons"
-import List from "../data/ListData.json"
-import { useNavigation } from "@react-navigation/native"
-import Tab_bottom from "./Tab_bottom"
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View, Image, Pressable, FlatList } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
+import List from "../data/ListData.json";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Home({ route }) {
-    const naviHome = useNavigation()
-    const [users, setUsers] = useState([])
-    const [name, setName] = useState("")
-    const [loading, setLoading] = useState(false)
+    const naviHome = useNavigation();
+    const [users, setUsers] = useState([]);
+    const [name, setName] = useState("");
+    const [loading, setLoading] = useState(false);
     const user = route.params?.user; // Nhận thông tin user từ Tab_bottom
-    const [qrCode, setQrCode] = useState(
-        "https://654325f301b5e279de1ff315.mockapi.io/api/v1/user"
-    )
+    const [qrCode, setQrCode] = useState("https://654325f301b5e279de1ff315.mockapi.io/api/v1/user");
+
     useEffect(() => {
-        getUsers()
-    }, [qrCode])
+        getUsers();
+    }, [qrCode]);
 
     const getUsers = async () => {
-        setLoading(true)
+        setLoading(true);
         await fetch("https://654325f301b5e279de1ff315.mockapi.io/api/v1/user")
             .then((res) => res.json())
             .then((res) => {
-                setUsers(res)
-                console.log(name)
+                setUsers(res);
+                console.log(name);
                 res.forEach((element) => {
-
                     if (element.login) {
-                        setName(element.userName)
+                        setName(element.userName);
                     }
-                })
-                setQrCode('')
+                });
+                setQrCode("");
             })
-            .catch((e) => console.log(e))
-        setLoading(false)
-    }
+            .catch((e) => console.log(e));
+        setLoading(false);
+    };
+
     return (
         <View style={styles.container}>
             {/* Thông tin người dùng */}
@@ -52,26 +50,17 @@ export default function Home({ route }) {
             {/* Các nút chức năng */}
             <View style={styles.btnArea}>
                 <Pressable style={styles.btn1} onPress={() => { naviHome.navigate('Declare') }}>
-                    <Image
-                        style={styles.imgSty}
-                        source={require("../images/icons/pic115.png")}
-                    />
+                    <Image style={styles.imgSty} source={require("../images/icons/pic115.png")} />
                     <Text style={styles.text_btn}>Khai báo</Text>
                     <Text style={styles.text_btn}>Y tế</Text>
                 </Pressable>
                 <Pressable style={styles.btn2} onPress={() => { naviHome.navigate('Certification', { user }) }}>
-                    <Image
-                        style={styles.imgSty}
-                        source={require("../images/icons/pic127.png")}
-                    />
+                    <Image style={styles.imgSty} source={require("../images/icons/pic127.png")} />
                     <Text style={styles.text_btn}>Chứng nhận</Text>
                     <Text style={styles.text_btn}>ngừa Covid</Text>
                 </Pressable>
                 <Pressable style={styles.btn3} onPress={() => { alert("Không có dữ liệu") }}>
-                    <Image
-                        style={styles.imgSty}
-                        source={require("../images/icons/pic129.png")}
-                    />
+                    <Image style={styles.imgSty} source={require("../images/icons/pic129.png")} />
                     <Text style={styles.text_btn}>Tư vấn</Text>
                     <Text style={styles.text_btn}>sức khỏe f0</Text>
                 </Pressable>
@@ -86,32 +75,21 @@ export default function Home({ route }) {
                     renderItem={({ item }) => (
                         <Pressable onPress={() => {
                             if (item.id == 6) {
-                                naviHome.navigate('More')
+                                naviHome.navigate('More');
+                            } else if (item.id == 5) {
+                                naviHome.navigate('Advise');
+                            } else if (item.id == 4) {
+                                naviHome.navigate('DocHealth');
+                            } else if (item.id == 3) {
+                                naviHome.navigate('HealthFacilities');
+                            } else if (item.id == 2) {
+                                naviHome.navigate('ResVacxin');
+                            } else if (item.id == 1) {
+                                naviHome.navigate('Passpore', { userID: user.id });
+                            } else {
+                                alert("khac");
                             }
-                            else if (item.id == 5) {
-                                naviHome.navigate('Advise')
-                            }
-                            else if (item.id == 4) {
-                                naviHome.navigate('DocHealth')
-                            }
-                            else if (item.id == 3) {
-                                naviHome.navigate('HealthFacilities')
-                            }
-                            else if (item.id == 2) {
-                                naviHome.navigate('ResVacxin')
-                            }
-                            else if (item.id == 1) {
-
-
-
-                                naviHome.navigate('Passpore', { userID: user.id })
-
-                            }
-                            else {
-                                alert("khac")
-                            }
-                        }}
-                        >
+                        }}>
                             <View style={styles.item_container}>
                                 <Image style={styles.btn_img} source={{ uri: item.img }} />
                                 <View style={{ alignItems: "center", width: 100 }}>
@@ -155,7 +133,7 @@ export default function Home({ route }) {
                 />
             </View>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -276,4 +254,4 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 10,
         marginBottom: 10,
     },
-})
+});
