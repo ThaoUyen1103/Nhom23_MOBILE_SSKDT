@@ -3,8 +3,10 @@ import { View, Text, StyleSheet, Pressable, FlatList, ActivityIndicator } from "
 import { useNavigation } from "@react-navigation/native"
 import Icon from "react-native-vector-icons/Ionicons"
 
+
 const Passpore = ({ route }) => {
     const { userID } = route.params;
+
     const [vaccines, setVaccines] = useState([]) // Lưu trữ thông tin mũi tiêm
     const [loading, setLoading] = useState(true) // Để theo dõi trạng thái tải dữ liệu
     const naviPa = useNavigation()
