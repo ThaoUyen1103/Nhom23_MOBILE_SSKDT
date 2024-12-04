@@ -101,7 +101,7 @@ export default function Home({route}) {
                                 naviHome.navigate('ResVacxin')
                             }
                             else if (item.id == 1) {
-                                naviHome.navigate('Passpore')
+                                naviHome.navigate('Passpore',{ userID: user.id })
                             }
                             else {
                                 alert("khac")
