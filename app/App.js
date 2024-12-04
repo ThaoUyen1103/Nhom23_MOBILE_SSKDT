@@ -20,6 +20,9 @@ import Scanner from "../Screens/Scanner"
 import Schedule from "../Screens/Schedule"
 import Notify from "../Screens/Notify"
 import Personal from "../Screens/Personal"
+import ForgotPassword from "../Screens/ForgotPassword"
+import ModalOTP from "../Screens/ModalOTP"
+import Register from "../Screens/Register"
 
 const Stack = createStackNavigator();
 
@@ -43,9 +46,12 @@ export default function App() {
         }}
       >
         <Stack.Screen name="Login" component={Screen_login} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+        <Stack.Screen name="ModalOTP" component={ModalOTP} />
+        <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
         <Stack.Screen name="Certification" component={Certification} options={{ headerShown: false }} />
-        <Stack.Screen name="InfoUser" component={InfoUser} options={{headerShown: false}}/>
+        <Stack.Screen name="InfoUser" component={InfoUser} options={{ headerShown: false }} />
         <Stack.Screen name="Declare" component={Declare} options={{ headerShown: false }} />
         <Stack.Screen name="DocHealth" component={DocHealth} options={{ headerShown: false }} />
         <Stack.Screen name="ResVacxin" component={ResVacxin} options={{ headerShown: false }} />
@@ -54,10 +60,10 @@ export default function App() {
         <Stack.Screen name="Passpore" component={Passpore} options={{ headerShown: false }} />
         <Stack.Screen name="More" component={More} options={{ headerShown: false }} />
         <Stack.Screen name="HandBook" component={HandBook} options={{ headerShown: false }} />
-        <Stack.Screen name="Personal" component={Personal} options={{headerShown: false}} />
+        <Stack.Screen name="Personal" component={Personal} options={{ headerShown: false }} />
         <Stack.Screen name="Tab_bottom" component={Tab_bottom} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
- 
+
   );
 }
