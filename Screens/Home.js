@@ -75,23 +75,8 @@ export default function Home({ route }) {
                     renderItem={({ item }) => (
                         <Pressable onPress={() => {
                             if (item.id == 6) {
-                                naviHome.navigate('More');
-                            } else if (item.id == 5) {
-                                naviHome.navigate('Advise');
-                            } else if (item.id == 4) {
-                                naviHome.navigate('DocHealth');
-                            } else if (item.id == 3) {
-                                naviHome.navigate('HealthFacilities');
-                            } else if (item.id == 2) {
-                                naviHome.navigate('ResVacxin');
-                            } else if (item.id == 1) {
-                                naviHome.navigate('Passpore', { userID: user.id });
-                            } else {
-                                alert("khac");
+                                naviHome.navigate('More',{user});
                             }
-<<<<<<< HEAD
-                        }}>
-=======
                             else if (item.id == 5) {
                                 naviHome.navigate('Advise')
                             }
@@ -102,7 +87,7 @@ export default function Home({ route }) {
                                 naviHome.navigate('HealthFacilities', { userID: user.id })
                             }
                             else if (item.id == 2) {
-                                naviHome.navigate('ResVacxin')
+                                naviHome.navigate('ResVacxin',{ userID: user.id })
                             }
                             else if (item.id == 1) {
                                 naviHome.navigate('Passpore', { userID: user.id })
@@ -113,7 +98,6 @@ export default function Home({ route }) {
                             }
                         }}
                         >
->>>>>>> 4ac5cc1f2e3d7c18439743619509a7ef985c9aef
                             <View style={styles.item_container}>
                                 <Image style={styles.btn_img} source={{ uri: item.img }} />
                                 <View style={{ alignItems: "center", width: 100 }}>

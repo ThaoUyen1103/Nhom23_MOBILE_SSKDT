@@ -14,7 +14,8 @@ import QRCode from "react-native-qrcode-svg"
 import { useNavigation } from "@react-navigation/native"
 import Icon from "react-native-vector-icons/Ionicons"
   
-const More = () => {
+const More = ({route}) => {
+    const user = route.params?.user;
     const naviMo = useNavigation();
     const [listdata, setListdata] = useState([])
     const mergeData = (list) => {
@@ -26,7 +27,7 @@ const More = () => {
     return (
         <View style={styles.container}>
             <View style={styles.container1}>
-            <Pressable onPress={() => { naviMo.navigate("Home") }}>
+            <Pressable onPress={() => { naviMo.navigate("Tab_bottom") }}>
                 <View style={styles.title1}>
                     <Icon name="arrow-back-outline" size={28} color={"#FFFFFF"} />
                 </View>

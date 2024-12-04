@@ -11,7 +11,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
 
-const ResVacxin = () => {
+const ResVacxin = ({route}) => {
   const naviRe = useNavigation();
 
   // State để lưu thông tin tiêm chủng
@@ -19,6 +19,7 @@ const ResVacxin = () => {
   const [vaccineName, setVaccineName] = useState("");
   const [selectedVaccine, setSelectedVaccine] = useState(null);
   const [userData, setUserData] = useState([]); // To store user data
+  const currentUserID = route.params?.userID;
 
   // Danh sách các loại vaccine có sẵn
   const availableVaccines = [
@@ -32,65 +33,62 @@ const ResVacxin = () => {
     { id: '8', name: "Vaccine HPV (Papillomavirus)" },
   ];
 
-  // Fetch user data
+  // Fetch danh sách vaccine của user hiện tại
+  // Lấy thông tin người dùng từ API
   useEffect(() => {
-    fetch('https://654325f301b5e279de1ff315.mockapi.io/api/v1/user')
-      .then(response => response.json())
-      .then(data => setUserData(data))
-      .catch(error => console.error('Error fetching user data:', error));
-  }, []);
-
-  // Hàm để đăng ký mũi tiêm mới
+    console.log("userID received:", currentUserID)
+    if (currentUserID) {
+      fetch(`https://654325f301b5e279de1ff315.mockapi.io/api/v1/user/${currentUserID}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setUserData(data);
+          setVaccines(data.vaccines || []);
+        })
+        .catch((error) => console.error("Error fetching user data:", error));
+    }
+  }, [currentUserID]);
+  // Hàm đăng ký vaccine
   const registerVaccine = async () => {
-    if (selectedVaccine) {
+    if (selectedVaccine && userData) {
       const newVaccine = {
         vaccineName: selectedVaccine.name,
         date: new Date().toISOString(), // Ngày hiện tại
       };
 
-      const userId = '1'; // Example: Use the correct user ID
-      const user = userData.find(user => user.id === userId);
-
-      if (user) {
-        // Add the new vaccine to the user's vaccine list
-        const updatedVaccines = [...user.vaccines, newVaccine];
-
-        // Update the user data on the server
-        try {
-          const response = await fetch(
-            `https://654325f301b5e279de1ff315.mockapi.io/api/v1/user/${userId}`,
-            {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                ...user,
-                vaccines: updatedVaccines, // Update vaccine list
-              }),
-            }
-          );
-
-          if (response.ok) {
-            const updatedUser = await response.json();
-            alert('Đăng ký tiêm chủng thành công!');
-
-            // Update the local state with the new vaccine list
-            setVaccines(updatedUser.vaccines);
-          } else {
-            const errorData = await response.json();
-            alert(`Lỗi: ${errorData.message || 'Đã có lỗi xảy ra. Vui lòng thử lại!'}`);
+      try {
+        const response = await fetch(
+          `https://654325f301b5e279de1ff315.mockapi.io/api/v1/user/${currentUserID}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ...userData,
+              vaccines: [...vaccines, newVaccine], // Cập nhật danh sách vaccine
+            }),
           }
-        } catch (error) {
-          console.error('Lỗi khi gọi API:', error);
-          alert('Đã có lỗi xảy ra, vui lòng thử lại!');
+        );
+
+        if (response.ok) {
+          const updatedUser = await response.json();
+          alert("Đăng ký tiêm chủng thành công!");
+
+          // Cập nhật trạng thái local
+          setVaccines(updatedUser.vaccines);
+        } else {
+          const errorData = await response.json();
+          alert(`Lỗi: ${errorData.message || "Đã có lỗi xảy ra. Vui lòng thử lại!"}`);
         }
+      } catch (error) {
+        console.error("Lỗi khi gọi API:", error);
+        alert("Đã có lỗi xảy ra, vui lòng thử lại!");
       }
     } else {
-      alert('Vui lòng chọn vaccine!');
+      alert("Vui lòng chọn vaccine!");
     }
   };
-
+  
   return (
     <View style={styles.container}>
       <View style={styles.view1}>

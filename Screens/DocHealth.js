@@ -28,12 +28,12 @@ const DocHealth = ({ route }) => {
           } else {
             setUserData(null);  // Nếu không tìm thấy người dùng
           }
-          setLoading(false); // Kết thúc trạng thái tải
+          setLoading(false); 
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
           setUserData(null);  // Nếu có lỗi, gán dữ liệu người dùng là null
-          setLoading(false);  // Kết thúc trạng thái tải
+          setLoading(false);
         });
     } else {
       setLoading(false);  // Nếu không có userID, kết thúc trạng thái tải

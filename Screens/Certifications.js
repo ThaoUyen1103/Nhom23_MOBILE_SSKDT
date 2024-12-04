@@ -36,6 +36,8 @@ const Certification = ({ route }) => {
     setLoading(false)
   }
 
+  const vaccineCount = user.vaccines?.length || 0;
+
   return (
     <View style={styles.container}>
       <View style={styles.title}>
@@ -53,7 +55,7 @@ const Certification = ({ route }) => {
           style={{ width: 50, height: 60 }}
           source={require("../images/chungNhan_0000_Layer-1.png")}
         />
-        <Text style={styles.text2}>ĐÃ TIÊM 02 MŨI VACCINE</Text>
+        <Text style={styles.text2}>ĐÃ TIÊM {vaccineCount} MŨI VACCINE</Text>
         <View style={styles.qrcode}>
           <View style={styles.viewQR}>
             <QRCode value={qrCode} />
