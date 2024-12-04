@@ -5,7 +5,7 @@ import List from "../data/ListData.json"
 import { useNavigation } from "@react-navigation/native"
 import Tab_bottom from "./Tab_bottom"
 
-export default function Home({route}) {
+export default function Home({ route }) {
     const naviHome = useNavigation()
     const [users, setUsers] = useState([])
     const [name, setName] = useState("")
@@ -21,19 +21,19 @@ export default function Home({route}) {
     const getUsers = async () => {
         setLoading(true)
         await fetch("https://654325f301b5e279de1ff315.mockapi.io/api/v1/user")
-          .then((res) => res.json())
-          .then((res) => {
-            setUsers(res)
-            console.log(name)
-            res.forEach((element) => {
-              
-              if (element.login) {
-                setName(element.userName)
-              }
+            .then((res) => res.json())
+            .then((res) => {
+                setUsers(res)
+                console.log(name)
+                res.forEach((element) => {
+
+                    if (element.login) {
+                        setName(element.userName)
+                    }
+                })
+                setQrCode('')
             })
-            setQrCode('')
-          })
-          .catch((e) => console.log(e))
+            .catch((e) => console.log(e))
         setLoading(false)
     }
     return (
@@ -59,7 +59,7 @@ export default function Home({route}) {
                     <Text style={styles.text_btn}>Khai báo</Text>
                     <Text style={styles.text_btn}>Y tế</Text>
                 </Pressable>
-                <Pressable style={styles.btn2} onPress={() => { naviHome.navigate('Certification', {user}) }}>
+                <Pressable style={styles.btn2} onPress={() => { naviHome.navigate('Certification', { user }) }}>
                     <Image
                         style={styles.imgSty}
                         source={require("../images/icons/pic127.png")}
@@ -101,7 +101,7 @@ export default function Home({route}) {
                                 naviHome.navigate('ResVacxin')
                             }
                             else if (item.id == 1) {
-                                naviHome.navigate('Passpore')
+                                naviHome.navigate('Passpore', { userID: user.id })
                             }
                             else {
                                 alert("khac")

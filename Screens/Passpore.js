@@ -3,24 +3,35 @@ import { View, Text, StyleSheet, Pressable, FlatList, ActivityIndicator } from "
 import { useNavigation } from "@react-navigation/native"
 import Icon from "react-native-vector-icons/Ionicons"
 
-const Passpore = () => {
+const Passpore = ({ route }) => {
+    const { userID } = route.params;
     const [vaccines, setVaccines] = useState([]) // Lưu trữ thông tin mũi tiêm
     const [loading, setLoading] = useState(true) // Để theo dõi trạng thái tải dữ liệu
     const naviPa = useNavigation()
-
     useEffect(() => {
+        console.log("userID nhận được:", userID);
+
         // Lấy dữ liệu từ API
-        fetch("https://654325f301b5e279de1ff315.mockapi.io/api/v1/user/17")
+        fetch("https://654325f301b5e279de1ff315.mockapi.io/api/v1/user")
             .then((response) => response.json())
             .then((data) => {
-                setVaccines(data.vaccines) // Lưu thông tin mũi tiêm vào state
-                setLoading(false) // Kết thúc trạng thái tải
+                console.log("Dữ liệu API:", data);  // Kiểm tra cấu trúc của dữ liệu trả về
+                // Lọc ra thông tin của người dùng đăng nhập
+                const currentUser = data.find((user) => user.id === userID);
+                console.log("User tìm thấy:", currentUser);  // Kiểm tra dữ liệu người dùng
+                if (currentUser && Array.isArray(currentUser.vaccines)) {
+                    setVaccines(currentUser.vaccines); // Gán mảng vaccines từ người dùng đã đăng nhập
+                } else {
+                    setVaccines([]); // Gán mảng rỗng nếu không có thông tin
+                }
+                setLoading(false); // Kết thúc trạng thái tải
             })
             .catch((error) => {
-                console.error("Error fetching data: ", error)
-                setLoading(false)
-            })
-    }, [])
+                console.error("Error fetching data: ", error);
+                setVaccines([]); // Gán mảng rỗng nếu có lỗi
+                setLoading(false);
+            });
+    }, [userID]);
 
     // Hàm render từng mũi tiêm
     const renderItem = ({ item }) => (

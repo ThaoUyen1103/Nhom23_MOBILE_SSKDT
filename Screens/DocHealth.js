@@ -1,17 +1,27 @@
-import {
-    View,
-    Text,
-    StyleSheet,
-    Pressable,
-    Image,
-    TextInput,
-  } from "react-native"
-  import React from "react"
-  import { useNavigation } from "@react-navigation/native"
-  import Icon from "react-native-vector-icons/Ionicons"
-  
-  const DocHealth = () => {
-    const naviDo = useNavigation();
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
+import Icon from "react-native-vector-icons/Ionicons";
+
+const DocHealth = () => {
+  const [userData, setUserData] = useState(null); // State to store user data
+  const naviDo = useNavigation();
+
+  useEffect(() => {
+    // Fetching user data from the API
+    fetch('https://654325f301b5e279de1ff315.mockapi.io/api/v1/user')
+      .then((response) => response.json())
+      .then((data) => {
+        setUserData(data[0]); // Assuming we are displaying the first user’s data
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+  }, []);
+
+  // Displaying loading state or the user profile
+  if (!userData) {
     return (
       <View style={styles.container}>
         <View style={styles.view1}>
@@ -28,61 +38,77 @@ import {
           </View>
         </View>
       </View>
-    )
+    );
   }
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#2b83f9",
-      //backgroundImage: 'linear-gradient(to right, #2b83f9, #47a6fa)',
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    input: {
-      height: 40,
-      borderColor: "gray",
-      borderWidth: 1,
-      marginBottom: 16,
-      padding: 8,
-      width: "90%",
-      borderRadius: 20,
-      color: "black",
-    },
-    notify: {
-      // backgroundColor: "#DEBDBD",
-      flex: 1,
-      alignItems: "center",
-      justifyContent: "flex-start",
-      paddingTop: 10,
-    },
-    view1: {
-      flexDirection: 'row',
-      // backgroundColor: "#B9DDFF",
-      alignItems: "center",
-      justifyContent: "center",
-      width: "100%",
-      height: "13%",
-    },
-    view2: {
-      backgroundColor: "#FFFFFF",
-      width: "100%",
-      height: "87%",
-      borderTopLeftRadius: 20,
-      borderTopRightRadius: 20,
-    },
-    text1: {
-      fontSize: 18,
-      fontWeight: "bold",
-      color: "#FFFFFF",
-    },
-    title1: {
-      // backgroundColor: "#FFD6D6",
-      width: "10%",
-      height: "100%",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-  })
-  
-  export default DocHealth
-  
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.view1}>
+        <Pressable onPress={() => { naviDo.navigate("Tab_bottom") }}>
+          <View style={styles.title1}>
+            <Icon name="arrow-back-outline" size={28} color={"#FFFFFF"} />
+          </View>
+        </Pressable>
+        <Text style={styles.text1}>Hồ sơ sức khỏe</Text>
+      </View>
+
+      <View style={styles.view2}>
+        <View style={styles.notify}>
+          <Text style={styles.infoText}>Tên: {userData.userName}</Text>
+          <Text style={styles.infoText}>Số điện thoại: {userData.phone}</Text>
+          <Text style={styles.infoText}>Ngày sinh: {userData.birthDay}</Text>
+          <Text style={styles.infoText}>Tình trạng sức khỏe: {userData.healthStatus}</Text>
+        </View>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#2b83f9",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  view1: {
+    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    height: "13%",
+  },
+  view2: {
+    backgroundColor: "#FFFFFF",
+    width: "100%",
+    height: "87%",
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    paddingTop: 10,
+    alignItems: "center",
+  },
+  text1: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#FFFFFF",
+  },
+  title1: {
+    width: "10%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  notify: {
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    paddingTop: 20,
+  },
+  infoText: {
+    fontSize: 16,
+    marginBottom: 10,
+    color: "#000000",
+  },
+});
+
+export default DocHealth;

@@ -4,7 +4,6 @@ import {
   Text,
   StyleSheet,
   Pressable,
-  Image,
   TextInput,
   FlatList,
 } from "react-native";
@@ -14,7 +13,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 const HealthFacilities = () => {
   const naviHe = useNavigation();
 
-  // Ví dụ danh sách cơ sở y tế
+  // Danh sách cơ sở y tế mẫu
   const facilities = [
     { id: "1", name: "Bệnh viện Đại học Y Dược TP.HCM", address: "215 Hồng Bàng, Quận 5, TP.HCM", hours: "7:00 AM - 6:00 PM" },
     { id: "2", name: "Bệnh viện 115", address: "527 Sư Vạn Hạnh, Quận 10, TP.HCM", hours: "24/7" },
@@ -48,10 +47,15 @@ const HealthFacilities = () => {
       </View>
       <View style={styles.view2}>
         <TextInput style={styles.input} placeholder="Tìm kiếm" />
+
+        {/* Đảm bảo FlatList có không gian để cuộn */}
         <FlatList
           data={facilities}
           renderItem={renderFacilityItem}
           keyExtractor={(item) => item.id}
+          contentContainerStyle={styles.flatListContentContainer}
+          scrollEnabled={true}
+          keyboardShouldPersistTaps="handled"
         />
       </View>
     </View>
@@ -63,7 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#2b83f9",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   input: {
     height: 40,
@@ -71,7 +75,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 16,
     padding: 8,
-    width: "90%",
+    width: 330,
     borderRadius: 20,
     color: "black",
   },
@@ -79,16 +83,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    width: "100%",
-    height: "13%",
+    width: 375,
+    height: 80,
   },
   view2: {
     backgroundColor: "#FFFFFF",
-    width: "100%",
-    height: "87%",
+    width: 375,
+    flex: 1,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 10,
+  },
+  flatListContentContainer: {
+    paddingBottom: 50,
+    paddingTop: 10,
   },
   text1: {
     fontSize: 18,
@@ -96,7 +104,7 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   title1: {
-    width: "10%",
+    width: 50,
     height: "100%",
     alignItems: "center",
     justifyContent: "center",

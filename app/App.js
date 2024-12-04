@@ -24,7 +24,8 @@ import ForgotPassword from "../Screens/ForgotPassword"
 import ModalOTP from "../Screens/ModalOTP"
 import Register from "../Screens/Register"
 
-const Stack = createStackNavigator();
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (

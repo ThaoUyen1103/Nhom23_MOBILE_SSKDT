@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react"
 import QRCode from "react-native-qrcode-svg"
 import { useNavigation } from "@react-navigation/native"
 import Icon from "react-native-vector-icons/Ionicons"
-const Certification = ({route}) => {
+const Certification = ({ route }) => {
   const naviCer = useNavigation();
   const [users, setUsers] = useState([])
   const [name, setName] = useState("")
@@ -39,7 +39,7 @@ const Certification = ({route}) => {
   return (
     <View style={styles.container}>
       <View style={styles.title}>
-        <Pressable onPress={()=>{naviCer.navigate("Tab_bottom")}}>
+        <Pressable onPress={() => { naviCer.navigate("Tab_bottom") }}>
           <View style={styles.title1}>
             <Icon name="arrow-back-outline" size={28} color={"#FFFFFF"} />
           </View>
@@ -53,16 +53,12 @@ const Certification = ({route}) => {
           style={{ width: 50, height: 60 }}
           source={require("../images/chungNhan_0000_Layer-1.png")}
         />
-        <Text style={styles.text2}>ĐÃ TIÊM 04 MŨI VACCINE</Text>
+        <Text style={styles.text2}>ĐÃ TIÊM 02 MŨI VACCINE</Text>
         <View style={styles.qrcode}>
           <View style={styles.viewQR}>
-            {/*<QRCode value={qrCode} />*/}
+            <QRCode value={qrCode} />
           </View>
         </View>
-        {/* <Image
-          style={{ width: 120, height: 120, margin: 10 }}
-          source={require("../images/chungNhan_0001_Layer-2.png")}
-        /> */}
         <Text style={styles.text1}>Thông tin cá nhân:</Text>
         <View style={styles.info}>
           <View style={styles.info1}>
@@ -158,7 +154,7 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
-    marginLeft:40
+    marginLeft: 40
   },
   title2: {
     // backgroundColor: "#FFD6D6",
@@ -166,7 +162,7 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
-    marginLeft:-20
+    marginLeft: -20
   },
   text1: {
     fontSize: 22,
