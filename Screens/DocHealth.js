@@ -1,26 +1,53 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import Icon from "react-native-vector-icons/Ionicons";
 
-const DocHealth = () => {
-  const [userData, setUserData] = useState(null); // State to store user data
+const DocHealth = ({ route }) => {
+  const { userID } = route.params; // Lấy userID từ params
+  const [userData, setUserData] = useState(null); 
+  const [loading, setLoading] = useState(true);
   const naviDo = useNavigation();
 
   useEffect(() => {
-    // Fetching user data from the API
-    fetch('https://654325f301b5e279de1ff315.mockapi.io/api/v1/user')
-      .then((response) => response.json())
-      .then((data) => {
-        setUserData(data[0]); // Assuming we are displaying the first user’s data
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, []);
+    console.log("userID received:", userID); // Kiểm tra userID nhận được
 
-  // Displaying loading state or the user profile
+    // Kiểm tra xem userID có tồn tại không
+    if (userID) {
+      // Lấy dữ liệu người dùng từ API
+      fetch("https://654325f301b5e279de1ff315.mockapi.io/api/v1/user")
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("API data:", data); // Kiểm tra dữ liệu nhận được từ API
+
+          // Lọc ra người dùng có userID tương ứng
+          const currentUser = data.find((user) => user.id === userID);
+          if (currentUser) {
+            setUserData(currentUser);  // Gán dữ liệu người dùng vào state
+          } else {
+            setUserData(null);  // Nếu không tìm thấy người dùng
+          }
+          setLoading(false); // Kết thúc trạng thái tải
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+          setUserData(null);  // Nếu có lỗi, gán dữ liệu người dùng là null
+          setLoading(false);  // Kết thúc trạng thái tải
+        });
+    } else {
+      setLoading(false);  // Nếu không có userID, kết thúc trạng thái tải
+    }
+  }, [userID]); // Chạy lại nếu userID thay đổi
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
   if (!userData) {
     return (
       <View style={styles.container}>

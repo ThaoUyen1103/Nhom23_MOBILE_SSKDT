@@ -6,7 +6,6 @@ import Icon from "react-native-vector-icons/Ionicons"
 
 const Passpore = ({ route }) => {
     const { userID } = route.params;
-
     const [vaccines, setVaccines] = useState([]) // Lưu trữ thông tin mũi tiêm
     const [loading, setLoading] = useState(true) // Để theo dõi trạng thái tải dữ liệu
     const naviPa = useNavigation()
@@ -26,7 +25,7 @@ const Passpore = ({ route }) => {
                 } else {
                     setVaccines([]); // Gán mảng rỗng nếu không có thông tin
                 }
-                setLoading(false); // Kết thúc trạng thái tải
+                setLoading(false);
             })
             .catch((error) => {
                 console.error("Error fetching data: ", error);

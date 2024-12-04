@@ -92,18 +92,15 @@ export default function Home({ route }) {
                                 naviHome.navigate('Advise')
                             }
                             else if (item.id == 4) {
-                                naviHome.navigate('DocHealth')
+                                naviHome.navigate('DocHealth', { userID: user.id })
                             }
                             else if (item.id == 3) {
-                                naviHome.navigate('HealthFacilities')
+                                naviHome.navigate('HealthFacilities', { userID: user.id })
                             }
                             else if (item.id == 2) {
                                 naviHome.navigate('ResVacxin')
                             }
                             else if (item.id == 1) {
-
-
-
                                 naviHome.navigate('Passpore', { userID: user.id })
 
                             }

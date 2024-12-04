@@ -62,6 +62,9 @@ export default function App() {
         <Stack.Screen name="More" component={More} options={{ headerShown: false }} />
         <Stack.Screen name="HandBook" component={HandBook} options={{ headerShown: false }} />
         <Stack.Screen name="Personal" component={Personal} options={{ headerShown: false }} />
+        <Stack.Screen name="Scanner" component={Scanner} options={{ headerShown: false }} />
+        <Stack.Screen name="Schedule" component={Schedule} options={{ headerShown: false }} />
+        <Stack.Screen name="Notify" component={Notify} options={{ headerShown: false }} />
         <Stack.Screen name="Tab_bottom" component={Tab_bottom} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
